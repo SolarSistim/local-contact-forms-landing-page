@@ -8,6 +8,7 @@
       <a (click)="scrollToSection('hero')">Home</a>
       <a (click)="scrollToSection('features')">Features</a>
       <a (click)="scrollToSection('pricing')">Pricing</a>
+      <a (click)="scrollToSection('why')">About</a>
       <a routerLink="/wiki">Wiki</a>
       <a (click)="scrollToSection('cta')">Contact</a>
     </nav>
@@ -23,6 +24,7 @@
     <a (click)="scrollToSection('hero'); closeMobileMenu()">Home</a>
     <a (click)="scrollToSection('features'); closeMobileMenu()">Features</a>
     <a (click)="scrollToSection('pricing'); closeMobileMenu()">Pricing</a>
+    <a (click)="scrollToSection('why'); closeMobileMenu()">About</a>
     <a routerLink="/wiki" (click)="closeMobileMenu()">Wiki</a>
     <a (click)="scrollToSection('cta'); closeMobileMenu()">Contact</a>
   </nav>
@@ -33,11 +35,14 @@
   <div class="hero-container">
     <div class="hero-content">
       <h1 class="hero-title">Easy, simple & cost-effective contact forms</h1>
+      <div class="hero-image-mobile">
+        <img src="/images/local-contact-froms-landing-page-preview.png" alt="Form themes preview" class="hero-preview-image">
+      </div>
       <p class="hero-subtitle">
         Create a shareable, cross platform compatible contact form for your small business in minutes!
       </p>
       <div class="hero-buttons">
-        <button mat-raised-button color="primary" class="primary-btn" (click)="scrollToSection('cta')">
+        <button mat-raised-button color="primary" class="primary-btn" (click)="openContactForm()">
           Contact us
         </button>
         <button mat-stroked-button class="secondary-btn" (click)="scrollToSection('pricing')">
@@ -46,10 +51,8 @@
       </div>
       <p class="hero-note">No complicated setup. One simple monthly price.</p>
     </div>
-    <div class="hero-image">
-      <div class="placeholder-image">
-        <span>Form themes preview</span>
-      </div>
+    <div class="hero-image-desktop">
+      <img src="/images/local-contact-froms-landing-page-preview.png" alt="Form themes preview" class="hero-preview-image">
     </div>
   </div>
 </section>

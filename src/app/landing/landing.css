@@ -132,7 +132,11 @@ button[mat-raised-button][color="primary"]:active,
   margin: 0;
 }
 
-.hero-image {
+.hero-image-mobile {
+  display: none;
+}
+
+.hero-image-desktop {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -149,6 +153,14 @@ button[mat-raised-button][color="primary"]:active,
   justify-content: center;
   color: #999;
   font-size: 1.1rem;
+}
+
+.hero-preview-image {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
 }
 
 /* Features Section */
@@ -552,6 +564,16 @@ button[mat-raised-button][color="primary"]:active,
   .hero-container {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .hero-image-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-image-desktop {
+    display: none;
   }
 
   .hero-title {
