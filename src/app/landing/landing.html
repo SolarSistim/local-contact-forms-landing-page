@@ -1,0 +1,168 @@
+<!-- Navigation Bar -->
+<mat-toolbar class="navbar">
+  <div class="nav-container">
+    <a class="logo" (click)="scrollToSection('hero')">
+      <span class="logo-text">Local Contact Forms</span>
+    </a>
+    <nav class="nav-links">
+      <a (click)="scrollToSection('hero')">Home</a>
+      <a (click)="scrollToSection('features')">Features</a>
+      <a (click)="scrollToSection('pricing')">Pricing</a>
+      <a routerLink="/wiki">Wiki</a>
+      <a (click)="scrollToSection('cta')">Contact</a>
+    </nav>
+    <button mat-icon-button class="menu-button" (click)="toggleMobileMenu()">
+      <mat-icon>{{ mobileMenuOpen ? 'close' : 'menu' }}</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" [class.hidden]="!mobileMenuOpen">
+  <nav>
+    <a (click)="scrollToSection('hero'); closeMobileMenu()">Home</a>
+    <a (click)="scrollToSection('features'); closeMobileMenu()">Features</a>
+    <a (click)="scrollToSection('pricing'); closeMobileMenu()">Pricing</a>
+    <a routerLink="/wiki" (click)="closeMobileMenu()">Wiki</a>
+    <a (click)="scrollToSection('cta'); closeMobileMenu()">Contact</a>
+  </nav>
+</div>
+
+<!-- Section 1: Hero -->
+<section id="hero" class="hero-section">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title">Easy, simple & cost-effective contact forms</h1>
+      <p class="hero-subtitle">
+        Create a shareable, cross platform compatible contact form for your small business in minutes!
+      </p>
+      <div class="hero-buttons">
+        <button mat-raised-button color="primary" class="primary-btn" (click)="scrollToSection('cta')">
+          Contact us
+        </button>
+        <button mat-stroked-button class="secondary-btn" (click)="scrollToSection('pricing')">
+          View pricing
+        </button>
+      </div>
+      <p class="hero-note">No complicated setup. One simple monthly price.</p>
+    </div>
+    <div class="hero-image">
+      <div class="placeholder-image">
+        <span>Form themes preview</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Features -->
+<section id="features" class="features-section">
+  <div class="section-container">
+    <h2 class="section-title">Built for small businesses</h2>
+    <p class="section-intro">
+      Local Contact Forms makes it easy for customers to reach you from any device, without you managing a website or custom code.
+    </p>
+
+    <div class="features-grid">
+      <mat-card *ngFor="let feature of features" class="feature-card">
+        <mat-card-content>
+          <mat-icon class="feature-icon">{{ feature.icon }}</mat-icon>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Pricing -->
+<section id="pricing" class="pricing-section">
+  <div class="section-container">
+    <h2 class="section-title">Simple pricing</h2>
+    <p class="section-subtitle">One plan for everyone. No tiers, no surprises.</p>
+
+    <mat-card class="pricing-card">
+      <mat-card-content>
+        <div class="price">$10<span class="price-period">/month</span></div>
+        <p class="price-description">
+          One simple plan. Unlimited form views & submissions for a single business.
+        </p>
+        <button mat-raised-button color="primary" class="price-btn" (click)="openContactForm()">
+          Subscribe
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
+
+<!-- Why Section -->
+<section id="why" class="why-section">
+  <div class="section-container">
+    <h2 class="section-title">Why does Local Contact Forms exist?</h2>
+    <div class="why-content">
+      <p class="why-text">
+        I'm a local developer here in Pace, FL, and I've seen the same problem across a bunch of small businesses: contact forms that don't exist, don't work, or are too much of a hassle to maintain.
+      </p>
+      <p class="why-text">
+        Whether you just need a simple link for Instagram or you're tired of missing leads because your old form broke, getting customer inquiries shouldn't be hard.
+      </p>
+      <p class="why-text">
+        Local Contact Forms is my fix for that—a clean, dependable form you can share anywhere, with messages delivered straight to your inbox. No hosting, no setup headaches, no surprise costs.
+      </p>
+      <p class="why-text">
+        It's not a big startup. It's just a simple solution built for our local community, by someone who's part of it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: CTA & Wiki Combined -->
+<section id="cta-wiki" class="cta-wiki-section">
+  <div class="section-container">
+    <div class="cta-wiki-grid">
+      <!-- Left: Ready to Get Started -->
+      <div class="cta-column">
+        <mat-icon class="cta-icon">rocket_launch</mat-icon>
+        <h2 class="cta-title">Ready to get started?</h2>
+        <p class="cta-text">Tell us about your business and we'll set up your Local Contact Form.</p>
+        <button mat-raised-button color="primary" class="cta-btn" (click)="openContactForm()">
+          Get started
+        </button>
+      </div>
+
+      <!-- Right: Have Questions -->
+      <div class="wiki-column">
+        <mat-icon class="wiki-icon">help_outline</mat-icon>
+        <h2 class="wiki-promo-title">Have questions?</h2>
+        <p class="wiki-promo-text">
+          Learn how to share your form, customize themes, manage submissions, and more.
+        </p>
+        <button mat-raised-button color="primary" routerLink="/wiki" class="wiki-btn">
+          Visit Wiki
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: Footer -->
+<footer id="footer" class="footer-section">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span class="logo-text">Local Contact Forms</span>
+      </div>
+      <nav class="footer-links">
+        <a (click)="scrollToSection('hero')">Home</a>
+        <a (click)="scrollToSection('pricing')">Pricing</a>
+        <a routerLink="/wiki">Wiki / Documentation</a>
+        <a (click)="scrollToSection('cta')">Contact</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">ADA Statement</a>
+      </nav>
+    </div>
+    <div class="footer-copyright">
+      <p>&copy; {{ currentYear }} Local Contact Forms. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

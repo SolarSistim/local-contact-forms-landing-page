@@ -1,0 +1,35 @@
+<!-- Wiki Header -->
+<mat-toolbar class="wiki-toolbar">
+  <div class="wiki-header-container">
+    <a routerLink="/" class="wiki-home-link">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <h1 class="wiki-title">Local Contact Forms Wiki</h1>
+  </div>
+</mat-toolbar>
+
+<!-- Wiki Content -->
+<div class="wiki-container">
+  <!-- Sidebar Navigation -->
+  <aside class="wiki-sidebar">
+    <h2 class="sidebar-title">Documentation</h2>
+    <mat-nav-list class="article-list">
+      <a
+        mat-list-item
+        *ngFor="let article of articles"
+        (click)="selectArticle(article.id)"
+        [class.active]="selectedArticleId === article.id"
+      >
+        <span class="article-title">{{ article.title }}</span>
+        <mat-icon class="arrow-icon" *ngIf="selectedArticleId === article.id">chevron_right</mat-icon>
+      </a>
+    </mat-nav-list>
+  </aside>
+
+  <!-- Article Content -->
+  <main class="wiki-content">
+    <article class="article" *ngIf="selectedArticle">
+      <div [innerHTML]="selectedArticle.content" class="article-body"></div>
+    </article>
+  </main>
+</div>
