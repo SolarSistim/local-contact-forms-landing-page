@@ -21,6 +21,15 @@ button[mat-raised-button][color="primary"]:active,
   background-color: #4a148c !important;
 }
 
+::ng-deep .menu-button {
+  padding-right: 24px !important;
+}
+
+::ng-deep mat-toolbar {
+  padding-left: 0px !important;
+  padding-right: 0px !important;  
+}
+
 /* Navigation Bar */
 .navbar {
   background: white;
@@ -43,6 +52,15 @@ button[mat-raised-button][color="primary"]:active,
 .logo {
   cursor: pointer;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+  display: block;
 }
 
 .logo-text {

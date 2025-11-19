@@ -2,6 +2,7 @@
 <mat-toolbar class="navbar">
   <div class="nav-container">
     <a class="logo" (click)="scrollToSection('hero')">
+      <img src="/branding/local_contact_forms_dot_com_logo.png" alt="Local Contact Forms Logo" class="logo-image">
       <span class="logo-text">Local Contact Forms</span>
     </a>
     <nav class="nav-links">
@@ -10,7 +11,7 @@
       <a (click)="scrollToSection('pricing')">Pricing</a>
       <a (click)="scrollToSection('why')">About</a>
       <a routerLink="/wiki">Wiki</a>
-      <a (click)="scrollToSection('cta')">Contact</a>
+      <a (click)="scrollToSection('cta-wiki')">Contact</a>
     </nav>
     <button mat-icon-button class="menu-button" (click)="toggleMobileMenu()">
       <mat-icon>{{ mobileMenuOpen ? 'close' : 'menu' }}</mat-icon>
@@ -26,7 +27,7 @@
     <a (click)="scrollToSection('pricing'); closeMobileMenu()">Pricing</a>
     <a (click)="scrollToSection('why'); closeMobileMenu()">About</a>
     <a routerLink="/wiki" (click)="closeMobileMenu()">Wiki</a>
-    <a (click)="scrollToSection('cta'); closeMobileMenu()">Contact</a>
+    <a (click)="scrollToSection('cta-wiki'); closeMobileMenu()">Contact</a>
   </nav>
 </div>
 
@@ -158,7 +159,7 @@
         <a (click)="scrollToSection('hero')">Home</a>
         <a (click)="scrollToSection('pricing')">Pricing</a>
         <a routerLink="/wiki">Wiki / Documentation</a>
-        <a (click)="scrollToSection('cta')">Contact</a>
+        <a (click)="scrollToSection('cta-wiki')">Contact</a>
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Service</a>
         <a href="#">ADA Statement</a>
