@@ -16,20 +16,801 @@
     <mat-nav-list class="article-list">
       <a
         mat-list-item
-        *ngFor="let article of articles"
-        (click)="selectArticle(article.id)"
-        [class.active]="selectedArticleId === article.id"
+        (click)="selectArticle('getting-started')"
+        [class.active]="selectedArticleId === 'getting-started'"
       >
-        <span class="article-title">{{ article.title }}</span>
-        <mat-icon class="arrow-icon" *ngIf="selectedArticleId === article.id">chevron_right</mat-icon>
+        <span class="article-title">How to Get Started</span>
+        <mat-icon class="arrow-icon" *ngIf="selectedArticleId === 'getting-started'">
+          chevron_right
+        </mat-icon>
       </a>
+
+      <a
+        mat-list-item
+        (click)="selectArticle('customizing-your-form')"
+        [class.active]="selectedArticleId === 'customizing-your-form'"
+      >
+        <span class="article-title">Customizing Your Form</span>
+        <mat-icon class="arrow-icon" *ngIf="selectedArticleId === 'customizing-your-form'">
+          chevron_right
+        </mat-icon>
+      </a>
+
+      <a
+        mat-list-item
+        (click)="selectArticle('reviewing-submissions')"
+        [class.active]="selectedArticleId === 'reviewing-submissions'"
+      >
+        <span class="article-title">Reviewing Submissions</span>
+        <mat-icon class="arrow-icon" *ngIf="selectedArticleId === 'reviewing-submissions'">
+          chevron_right
+        </mat-icon>
+      </a>
+
+      <a
+        mat-list-item
+        (click)="selectArticle('sharing-your-form')"
+        [class.active]="selectedArticleId === 'sharing-your-form'"
+      >
+        <span class="article-title">Sharing Your Form</span>
+        <mat-icon class="arrow-icon" *ngIf="selectedArticleId === 'sharing-your-form'">
+          chevron_right
+        </mat-icon>
+      </a>
+
+      <a
+        mat-list-item
+        (click)="selectArticle('themes')"
+        [class.active]="selectedArticleId === 'themes'"
+      >
+        <span class="article-title">Themes</span>
+        <mat-icon class="arrow-icon" *ngIf="selectedArticleId === 'themes'">
+          chevron_right
+        </mat-icon>
+      </a>
+
+      <a
+        mat-list-item
+        (click)="selectArticle('form-performance')"
+        [class.active]="selectedArticleId === 'form-performance'"
+      >
+        <span class="article-title">Form Performance</span>
+        <mat-icon class="arrow-icon" *ngIf="selectedArticleId === 'form-performance'">
+          chevron_right
+        </mat-icon>
+      </a>
+
+      <a
+        mat-list-item
+        (click)="selectArticle('dev-roadmap')"
+        [class.active]="selectedArticleId === 'dev-roadmap'"
+      >
+        <span class="article-title">Development Roadmap</span>
+        <mat-icon class="arrow-icon" *ngIf="selectedArticleId === 'dev-roadmap'">
+          chevron_right
+        </mat-icon>
+      </a>
+
     </mat-nav-list>
   </aside>
 
   <!-- Article Content -->
   <main class="wiki-content">
-    <article class="article" *ngIf="selectedArticle">
-      <div [innerHTML]="selectedArticle.content" class="article-body"></div>
+    <article class="article" *ngIf="selectedArticleId === 'getting-started'">
+      <div class="article-body">
+        <h2>How to Get Started</h2>
+
+        <p>To get your Local Contact Form set up, you will go through a simple email-based onboarding flow. Everything starts from a single link.</p>
+
+        <h3>Step 1: Request a Subscription</h3>
+        <p>Go to <a href="https://app.localcontactforms.com/?id=local-contact-forms" target="_blank">https://app.localcontactforms.com/?id=local-contact-forms</a>, fill out the form with your business details, and submit it.</p>
+        <p>This lets us know who you are, how to reach you, and where to send your form and configuration tools.</p>
+
+        <p><a href="https://app.localcontactforms.com/?id=local-contact-forms"><img src="/wiki-images/local_contact_froms_dot_com_submit_subscription_form.jpg" alt="business_name example"></a>
+        <a href="https://app.localcontactforms.com/?id=local-contact-forms" target="_blank">https://app.localcontactforms.com/?id=local-contact-forms</a></p>
+
+        <h3>Step 2: Receive Payment Request</h3>
+        <p>After you submit the initial form, you will receive a follow-up email that contains a link to our merchant provider. Use that link to securely input your payment information and complete your subscription.</p>
+        <p>The subscription is handled entirely through the merchant provider, so your payment details are not stored in the Local Contact Forms system.</p>
+
+        <h3>Step 3: Receive Your Form Link and Google Sheets</h3>
+        <p>Once payment is complete, you will receive another email. This email includes:</p>
+        <ul>
+          <li>Your unique form link that customers will use to contact you.</li>
+          <li>A Google Sheet that controls your form configuration (content, branding, and basic settings).</li>
+          <li>Within the same google sheet, on a tab called "submissions", a historical record of your form submissions will be stored.</li>
+        </ul>
+        <p>Both spreadsheets are shared to the email address you provided during signup.</p>
+
+        <h3>Step 4: Begin Using Your Form</h3>
+        <p>At this point, your form is live and ready to share. You can immediately start using the URL in emails, social media, or on your website while you fine-tune the configuration sheet.</p>
+
+        <h3>Onboarding Workflow Summary</h3>
+        <ol>
+          <li>Request a subscription.</li>
+          <li>Receive payment request.</li>
+          <li>Receive your unique form link and Google Sheets.</li>
+          <li>Begin using the form.</li>
+        </ol>
+
+        <h3>What You Will Need</h3>
+        <p>To move through the setup smoothly, make sure you have:</p>
+        <ul>
+          <li><strong>Your business name:</strong> How it should appear to customers.</li>
+          <li><strong>An email address for notifications:</strong> Where you want to receive new contact submissions.</li>
+          <li><strong>Business information:</strong> Address, phone number, and any social media links you want displayed.</li>
+        </ul>
+      </div>
     </article>
+
+    <article class="article" *ngIf="selectedArticleId === 'customizing-your-form'">
+  <div class="article-body">
+    <h2>Customizing Your Form</h2>
+
+    <p>After you subscribe and receive your welcome email, you will have access to a configuration Google Sheet that is shared with the email address you provided. This sheet controls the text, contact information, and links that appear on your live form.</p>
+
+    <p>Each row in the sheet represents a configuration field. The <strong>Key</strong> identifies the setting, the <strong>Value</strong> is what will be displayed or used, and the <strong>Required?</strong> column tells you whether the field must be filled in for your form to work properly.</p>
+
+    <img src="/wiki-images/local_contact_froms_dot_com_configuration_screenshot.jpg" alt="business_name example">
+
+    <h1>How to Update Your Settings</h1>
+
+    <p><img src="/wiki-images/local_contact_froms_dot_com_config_sheet.jpg" alt="business_name example"></p>
+
+    <ol>
+      <li>Open the configuration Google Sheet shared with your email.</li>
+      <li>Locate the row for the field you want to change.</li>
+      <li>Edit the <strong>Value</strong> column for that row.</li>
+      <li>Save your changes (Google Sheets saves automatically).</li>
+    </ol>
+    <p>Changes will be reflected on your form after the configuration is synced. If you do not see your updates within a reasonable time, refresh your form and verify that your values are valid.</p>
+  
+
+    <h1>Configuration Fields</h1>
+
+    <table class="config-table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Example Value</th>
+      <th>Required?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('business_name')">
+          <code>business_name</code>
+        </a>
+      </td>
+      <td>Carl's Car Wash</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('notify_on_submit')">
+          <code>notify_on_submit</code>
+        </a>
+      </td>
+      <td>carlscarwash@gmail.com</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('intro_text')">
+          <code>intro_text</code>
+        </a>
+      </td>
+      <td>We'd love to hear from you!</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('meta_description')">
+          <code>meta_description</code>
+        </a>
+      </td>
+      <td>Fantastic Car Washes!</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('meta_keywords')">
+          <code>meta_keywords</code>
+        </a>
+      </td>
+      <td>shiny, mirror finish, polish</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('post_submit_message')">
+          <code>post_submit_message</code>
+        </a>
+      </td>
+      <td>Thank you for contacting us!</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('business_phone')">
+          <code>business_phone</code>
+        </a>
+      </td>
+      <td>800-123-1234</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('business_address_1')">
+          <code>business_address_1</code>
+        </a>
+      </td>
+      <td>291 Joel Drive</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('business_address_2')">
+          <code>business_address_2</code>
+        </a>
+      </td>
+      <td>Suite 120</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('business_city')">
+          <code>business_city</code>
+        </a>
+      </td>
+      <td>Pace</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('business_state')">
+          <code>business_state</code>
+        </a>
+      </td>
+      <td>FL</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('business_zip')">
+          <code>business_zip</code>
+        </a>
+      </td>
+      <td>52142</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('business_web_url')">
+          <code>business_web_url</code>
+        </a>
+      </td>
+      <td>https://www.carls-car-wash.com</td>
+      <td class="required-no">No</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('theme')">
+          <code>theme</code>
+        </a>
+      </td>
+      <td>Dark</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('reason_for_contact')">
+          <code>reason_for_contact</code>
+        </a>
+      </td>
+      <td>I want to set up an appointment, I'm having a problem with my service, I want to cancel my service, Other reason</td>
+      <td class="required-yes">Yes</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('facebook_url')">
+          <code>facebook_url</code>
+        </a>
+      </td>
+      <td>(example: https://www.facebook.com/YourPageName)</td>
+      <td class="required-no">No</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('instagram_url')">
+          <code>instagram_url</code>
+        </a>
+      </td>
+      <td>(example: https://www.instagram.com/yourbrand/)</td>
+      <td class="required-no">No</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('linkedin_url')">
+          <code>linkedin_url</code>
+        </a>
+      </td>
+      <td>(example: https://www.linkedin.com/company/your-company-name/)</td>
+      <td class="required-no">No</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('pinterest_url')">
+          <code>pinterest_url</code>
+        </a>
+      </td>
+      <td>(example: https://www.pinterest.com/yourbrand/)</td>
+      <td class="required-no">No</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('reddit_url')">
+          <code>reddit_url</code>
+        </a>
+      </td>
+      <td>(example: https://www.reddit.com/r/YourSubreddit/code)</td>
+      <td class="required-no">No</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('tiktok_url')">
+          <code>tiktok_url</code>
+        </a>
+      </td>
+      <td>(example: https://www.tiktok.com/@yourbrand)</td>
+      <td class="required-no">No</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('wechat_url')">
+          <code>wechat_url</code>
+        </a>
+      </td>
+      <td>(example: https://yourdomain.com/wechat)</td>
+      <td class="required-no">No</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('x_url')">
+          <code>x_url</code>
+        </a>
+      </td>
+      <td>(example: https://x.com/yourbrand)</td>
+      <td class="required-no">No</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="" (click)="$event.preventDefault(); scrollTo('youtube_url')">
+          <code>youtube_url</code>
+        </a>
+      </td>
+      <td>(example: https://www.youtube.com/@YourChannelName)</td>
+      <td class="required-no">No</td>
+    </tr>
+  </tbody>
+</table>
+
+
+    <h1>Field Descriptions</h1>
+
+    <section id="business_name">
+      <h2>business_name</h2>
+      <p>This field will appear here on the contact form:</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_business_name.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="notify_on_submit">
+      <h2>notify_on_submit</h2>
+      <p>This is the email address that the contact form submissions will go to.</p>
+    </section>
+
+    <section id="intro_text">
+      <h2>intro_text</h2>
+      <p>This field will appear here on the contact form:</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_intro_text.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="meta_description">
+      <h2>meta_description</h2>
+      <p>This is the description of your business that will be scraped by web search bots and some social media site.</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_meta_description.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="meta_keywords">
+      <h2>meta_keywords</h2>
+      <p>These are the keywords that web bots like Google and Yahoo will use to place your contact form on their search engines.</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_meta_keywords.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="post_submit_message">
+      <h2>post_submit_message</h2>
+      <p>This is the message that appears when s user submits the form.</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_submit_message.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="business_phone">
+      <h2>business_phone</h2>
+      <p>The phone number that appears on the contact form. Also used for Local Contact Forms admin billing.</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_phone_number.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="business_address_1">
+      <h2>business_address_1</h2>
+      <p>The street address of your business (if any).</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_address_1.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="business_address_2">
+      <h2>business_address_2</h2>
+      <p>The secondary address of your business, e.g. Suite # (if any).</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_address_2.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="business_city">
+      <h2>business_city</h2>
+      <p>The city where your business exists. Also used for Local Contact Forms billing.</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_city.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="business_state">
+      <h2>business_state</h2>
+      <p>The state where your business exists. Also used for Local Contact Forms billing.</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_state.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="business_zip">
+      <h2>business_zip</h2>
+      <p>The zip code where your business exists. Also used for Local Contact Forms billing.</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_zip.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="business_web_url">
+      <h2>business_web_url</h2>
+      <p>Your business website URL.</p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_website.jpg" alt="business_name example"></p>
+    </section>
+
+    <section id="theme">
+      <h2>theme</h2>
+      <p>A selectable dropdown list of all available themes. Select a theme, then refresh your form to see the newly applied theme.</p>
+      <p>
+        See <a href="" (click)="$event.preventDefault(); selectArticle('themes')">themes</a> for more info.
+      </p>
+    </section>
+
+    <section id="reason_for_contact">
+      <h2>reason_for_contact</h2>
+      <p>Enter your drop-down reason for contact list using a comma-separated format.</p>
+      <p><b>EXAMPLE:</b></p>
+      <p><code>I want to set up an appointment, I'm having a problem with my service, I want to cancel my service, Other reason</code></p>
+      <p><img src="/wiki-images/local_contact_froms_dot_com_reason_for_contact.jpg" alt="business_name example"></p>
+    </section>
+
+        <section id="facebook_url">
+      <h2>facebook_url</h2>
+      <p>Enter the full URL to the official Facebook page or profile for this entity, including the https:// prefix.</p>
+        <code>https://www.facebook.com/YourPageName</code>
+        <br/>Or<br/>
+        <code>https://www.facebook.com/profile.php?id=1234567890</code>
+            </section>
+
+            <section id="instagram_url">
+              <h2>instagram_url</h2>
+              <p>Enter the full URL to the official Instagram profile, using the standard instagram.com/username format.</p>
+
+        <code>https://www.instagram.com/yourbrand/</code>
+        <br/>Or<br/>
+        <code>https://instagram.com/yourbrand</code>
+
+            </section>
+
+            <section id="linkedin_url">
+              <h2>linkedin_url</h2>
+              <p>Enter the full URL to the official LinkedIn company or organization page.</p>
+
+        <code>https://www.linkedin.com/company/your-company-name/</code>
+        <br/>Or<br/>
+        <code>https://www.linkedin.com/school/your-school-name/</code>
+
+            </section>
+
+            <section id="pinterest_url">
+              <h2>pinterest_url</h2>
+              <p>Enter the full URL to the official Pinterest profile or board.</p>
+                      
+        <code>https://www.pinterest.com/yourbrand/</code>
+        <br/>Or<br/>
+        <code>https://www.pinterest.com/yourbrand/your-board-name/</code>
+
+            </section>
+
+            <section id="reddit_url">
+              <h2>reddit_url</h2>
+              <p>Enter the full URL to the primary Reddit community or profile associated with this entity.</p>
+
+        <code>https://www.reddit.com/r/YourSubreddit/code</code>
+        <br/>Or<br/>
+        <code>https://www.reddit.com/user/YourUsername/</code>
+
+            </section>
+
+            <section id="tiktok_url">
+              <h2>tiktok_url</h2>
+              <p>Enter the full URL to the official TikTok account page.</p>
+
+        <code>https://www.tiktok.com/@yourbrand</code>
+        <br/>Or<br/>
+        <code>https://www.tiktok.com/@yourbrand/video/1234567890123456789</code>
+
+            </section>
+
+            <section id="wechat_url">
+              <h2>wechat_url</h2>
+              <p>Enter a shareable WeChat profile or official account URL, if available, or a landing page that explains how to follow the WeChat account.</p>
+
+        <code>https://yourdomain.com/wechat</code>
+        <br/>Or<br/>
+        <code>https://weixin.qq.com/r/YourWeChatQRCodeId</code>
+
+            </section>
+
+            <section id="x_url">
+              <h2>x_url</h2>
+              <p>Enter the full URL to the official X (formerly Twitter) profile.</p>
+
+        <code>https://x.com/yourbrand</code>
+        <br/>Or<br/>
+        <code>https://twitter.com/yourbrand</code>
+
+            </section>
+
+            <section id="youtube_url">
+              <h2>youtube_url</h2>
+              <p>Enter the full URL to the official YouTube channel or primary playlist.</p>
+
+        <code>https://www.youtube.com/@YourChannelName</code>
+        <br/>Or<br/>
+        <code>https://www.youtube.com/channel/UCJFngIIy7cv</code>
+
+            </section>
+  </div>
+</article>
+
+        <article class="article" *ngIf="selectedArticleId === 'reviewing-submissions'">
+      <div class="article-body">
+        <h2>Reviewing Submissions</h2>
+
+        <p>There are two primary ways to review the submissions that come in from your Local Contact Form: by checking your email or by using the submissions tab in your Google Sheet. You can use one or both methods depending on your preferred workflow.</p>
+
+        <h3>Where submissions are stored</h3>
+        <p>Submissions are only stored in two places that you control:</p>
+        <ul>
+          <li><strong>Your email inbox:</strong> Each time someone submits the form, a copy of the submission is emailed to the address configured in <code>notify_on_submit</code>.</li>
+          <li><strong>Your Google Sheet:</strong> A dedicated tab, usually called <code>submissions</code>, stores every submission as a new row. New submissions are appended to the top of the spreadsheet.</li>
+        </ul>
+        <p>No other long-term storage is used. If you delete the emails or remove rows from the spreadsheet, those submissions will no longer be stored by the system.</p>
+
+        <h3>Reviewing submissions via email</h3>
+        <ol>
+          <li>Open the inbox for the email address set in <code>notify_on_submit</code>.</li>
+          <li>Search for messages sent from your Local Contact Form or filter by a label or folder if you use one.</li>
+          <li>Open each email to see the full details of the customer’s submission.</li>
+        </ol>
+        <p>This method works well if you prefer to handle each request as it arrives and keep everything inside your email workflow.</p>
+
+        <h3>Reviewing submissions in the Google Sheet</h3>
+        <ol>
+          <li>Open the Google Sheet that was shared with you when your form was created.</li>
+          <li>Click on the <code>submissions</code> tab at the bottom of the sheet.</li>
+          <li>Each row represents a single submission, with columns for each field on your form. New submissions are appended to the top of the sheet.</li>
+          <li>Scan down the list to see recent entries and click into any cell to manipulate copy details.</li>
+        </ol>
+        <p>This method is ideal when you want a historical view of all submissions, not just recent emails.</p>
+
+        <h3>Exporting and reporting</h3>
+        <p>You can export your submissions data from Google Sheets and use it for deeper analysis or backup.</p>
+        <ul>
+          <li>Use the Google Sheets menu to download the data as a CSV (comma-separated values) file for use in other tools or systems.</li>
+          <li>Create charts directly in Google Sheets to visualize trends, such as submissions per week or reasons for contact.</li>
+          <li>Build simple reports or pivot tables to understand patterns over time, popular services, or common issues reported by customers.</li>
+        </ul>
+
+        <p>By combining email notifications with the submissions sheet, you get both real-time alerts and a complete historical record of every contact request.</p>
+      </div>
+    </article>
+
+
+
+    <article class="article" *ngIf="selectedArticleId === 'sharing-your-form'">
+      <div class="article-body">
+        <h2>Sharing Your Form</h2>
+
+        <p>Your form is accessed by a unique URL. A typical link looks like this:</p>
+        <pre><code>https://localcontactforms.com/?tenantId=carls-car-wash</code></pre>
+        <p>Every customer interaction with your form starts with this link, so sharing it widely is the key to getting more submissions.</p>
+
+        <h3>Sharing on Your Website</h3>
+        <ul>
+          <li><strong>Contact Us page:</strong> Add a prominent "Contact Us" button or link that points directly to your form URL.</li>
+          <li><strong>Header or footer:</strong> Place a "Contact" or "Request Service" link in your site navigation that opens your Local Contact Form in the same tab or a new tab.</li>
+          <li><strong>Landing pages:</strong> If you run marketing campaigns, link your call-to-action buttons directly to the form for faster conversions.</li>
+        </ul>
+
+        <h3>Sharing in Emails</h3>
+        <ul>
+          <li><strong>Email signature:</strong> Add a line such as "Need help? Contact us here:" followed by your form link.</li>
+          <li><strong>Customer replies:</strong> When responding to customer questions, include your form link so they can submit detailed information.</li>
+          <li><strong>Newsletters and campaigns:</strong> Include a "Contact us" or "Request a quote" button in your email campaigns that points to the form.</li>
+        </ul>
+
+        <h3>Sharing on Social Media</h3>
+        <p>You can share your form link on any social platform where your customers follow you:</p>
+        <ul>
+          <li><strong>Facebook Page:</strong> Post your form link regularly, pin a post with the link to the top of your page, and add it to the "About" section.</li>
+          <li><strong>Instagram:</strong> Add the form URL to your bio and mention "Contact us via the link in bio" in your posts or stories.</li>
+          <li><strong>X (Twitter):</strong> Put the link in your profile website field and tweet it periodically with a clear call-to-action.</li>
+          <li><strong>LinkedIn:</strong> Add the link to your company page and to posts where you invite inquiries or leads.</li>
+          <li><strong>TikTok, YouTube, and others:</strong> Put the link in your profile and video descriptions, especially on content that encourages viewers to work with you.</li>
+        </ul>
+
+        <h3>Offline and QR Codes</h3>
+        <ul>
+          <li><strong>Printed materials:</strong> Add the form URL to business cards, flyers, postcards, or receipts.</li>
+          <li><strong>QR codes:</strong> Generate a QR code that points to your form URL and place it on signage, brochures, or at your checkout counter so customers can scan and contact you instantly.</li>
+        </ul>
+
+        <h3>Best Practices</h3>
+        <ul>
+          <li>Use simple, action-based language near the link such as "Request Service", "Get a Quote", or "Contact Us".</li>
+          <li>Share the link regularly, not just once. New followers and visitors need to see it too.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article" *ngIf="selectedArticleId === 'themes'">
+  <div class="article-body">
+    <h2>Themes</h2>
+
+    <p>Themes control the overall look and feel of your Local Contact Form. You can switch between themes to match your brand colors, tone, and style.</p>
+
+    <h3>How Themes Work</h3>
+    <ul>
+      <li>Each theme defines a set of colors, typography, and layout details.</li>
+      <li>The theme is selected using the <code>theme</code> key in your configuration Google Sheet.</li>
+      <li>When you change the theme value in your Google sheet, your form will reflect the new theme the next time it loads.</li>
+    </ul>
+
+    <h3>Changing Your Theme</h3>
+      <ol>
+        <li>Open your configuration tab Google Sheet.</li>
+        <li>Find the row where the <strong>Key</strong> is <code>theme</code>.</li>
+        <li>In the <strong>Value</strong> column, select the theme you want to use from the dropdown (for example, <code>Light</code> or <code>Dark</code>).</li>
+        <li>Google Sheets saves automatically.</li>
+        <li>Refresh your contact form in the browser to see the change.</li>
+      </ol>
+
+      <h3>Available Themes</h3>
+      <p>Choose from the following themes to match the look and feel of your brand. You can switch themes at any time by updating the <code>theme</code> value in your configuration sheet.</p>
+
+      <section id="theme-light">
+        <h2>Light</h2>
+        <p>The light theme uses a bright background with dark text for a clean, familiar look that works well for most businesses.</p>
+        <p><img src="/wiki-images/local_contact_froms_dot_com_theme_light.jpg" alt="Light theme preview"></p>
+      </section>
+
+      <section id="theme-dark">
+        <h2>Dark</h2>
+        <p>The dark theme uses a darker background with lighter text, giving your form a modern, high-contrast appearance that’s easy on the eyes in low-light settings.</p>
+        <p><img src="/wiki-images/local_contact_froms_dot_com_theme_dark.jpg" alt="Dark theme preview"></p>
+      </section>
+
+      <section id="theme-fern">
+        <h2>Fern</h2>
+        <p>The fern theme introduces soft green tones inspired by nature, ideal for brands that want a calm, organic, or eco-friendly feel.</p>
+        <p><img src="/wiki-images/local_contact_froms_dot_com_theme_fern.jpg" alt="Fern theme preview"></p>
+      </section>
+
+      <section id="theme-lilac">
+        <h2>Lilac</h2>
+        <p>The lilac theme uses gentle purple accents for a friendly, welcoming look that works well for creative, personal, or boutique-style businesses.</p>
+        <p><img src="/wiki-images/local_contact_froms_dot_com_theme_lilac.jpg" alt="Lilac theme preview"></p>
+      </section>
+
+      <section id="theme-lemoncello">
+        <h2>Lemoncello</h2>
+        <p>The lemoncello theme features bright, citrus-inspired highlights that draw attention to key actions and give your form an energetic, upbeat personality.</p>
+        <p><img src="/wiki-images/local_contact_froms_dot_com_theme_lemoncello.jpg" alt="Lemoncello theme preview"></p>
+      </section>
+
+      <section id="theme-sapphire">
+        <h2>Sapphire</h2>
+        <p>The sapphire theme leans on deep blues for a professional, trustworthy look that’s well suited to service providers and more formal brands.</p>
+        <p><img src="/wiki-images/local_contact_froms_dot_com_theme_sapphire.jpg" alt="Sapphire theme preview"></p>
+      </section>
+
+      <section id="theme-crimson">
+        <h2>Crimson</h2>
+        <p>The crimson theme uses bold red accents to create a strong visual impact, perfect when you want calls-to-action to stand out clearly.</p>
+        <p><img src="/wiki-images/local_contact_froms_dot_com_theme_crimson.jpg" alt="Crimson theme preview"></p>
+      </section>
+
+      <section id="theme-light-lavendar">
+        <h2>Light Lavender</h2>
+        <p>The light lavender theme combines soft pastel purples with a light background, creating a gentle and approachable experience for visitors.</p>
+        <p><img src="/wiki-images/local_contact_froms_dot_com_theme_light_lavender.jpg" alt="Light lavendar theme preview"></p>
+      </section>
+
+
+    </div>
+</article>
+
+    <article class="article" *ngIf="selectedArticleId === 'form-performance'">
+      <div class="article-body">
+        <h2>Form Performance</h2>
+
+        <p>Local Contact Forms makes it easy for customers to reach you, but the number of submissions you receive depends on how visible and compelling your form is. There is no guarantee of a specific number of submissions; performance is driven by how often and how effectively you share your link.</p>
+
+        <h3>What Affects Submissions</h3>
+        <ul>
+          <li><strong>Visibility:</strong> If customers rarely see the link, they will rarely submit the form. Placing it in more locations naturally increases opportunities for contact.</li>
+          <li><strong>Audience size:</strong> A larger audience on your website, social media, or email list typically leads to more submissions.</li>
+          <li><strong>Call-to-action:</strong> Clear, direct language like "Request an appointment" or "Get a free quote" encourages more people to click.</li></ul>
+
+        <h3>Improving Your Results</h3>
+        <ul>
+          <li>Share your form link regularly on social media, not just once.</li>
+          <li>Make sure your website has obvious buttons or links that lead to the form.</li>
+          <li>Mention the form in your emails, receipts, or invoices when you ask customers to follow up.</li>
+          <li>Use the configuration sheet to make your form welcoming, clear, and aligned with your brand.</li>
+        </ul>
+
+        <h3>Measuring Performance</h3>
+        <p>Your submissions Google Sheet acts as a simple performance tracker. You can:</p>
+        <ul>
+          <li>Count how many new submissions you receive per week or month.</li>
+          <li>Compare submission trends before and after promoting the link more aggressively.</li>
+        </ul>
+
+        <h3>Key Takeaway</h3>
+        <p>The form provides a reliable way for customers to contact you, but it is not a traffic generator by itself. The more frequently and strategically you share your form link, the more opportunities you create for new submissions.</p>
+      </div>
+    </article>
+
+        <article class="article" *ngIf="selectedArticleId === 'dev-roadmap'">
+      <div class="article-body">
+        <h2>Development Roadmap</h2>
+
+        <p>This section highlights several upcoming features planned for Local Contact Forms. These items are currently in development and will be released in future updates. Each feature is designed to improve usability, flexibility, and overall experience for both you and your customers.</p>
+
+        <section id="dev-qr-codes">
+          <h2>QR Codes</h2>
+          <p>A built-in QR code generator will allow you to instantly create scannable codes that link directly to your contact form. You’ll be able to download the QR code image and use it on printed materials, signage, business cards, receipts, or anywhere customers may interact with your brand offline.</p>
+        </section>
+
+        <section id="dev-dns-overlay">
+          <h2>DNS Overlay</h2>
+          <p>The DNS Overlay feature will allow you to host your Local Contact Form under a custom domain or subdomain you control. Instead of relying on the default form link, you’ll be able to map your own domain (for example: <code>contact.yourbusiness.com</code>) for a more branded and professional experience.</p>
+        </section>
+
+        <section id="dev-on-vacation">
+          <h2>On Vacation Setting</h2>
+          <p>When this feature is added, you will be able to temporarily enable an “On Vacation” mode. This mode will display a friendly message to your customers informing them that responses may be delayed or unavailable. You’ll be able to customize the message and specify a return date if desired.</p>
+        </section>
+
+        <section id="dev-additional-themes">
+          <h2>Additional Themes</h2>
+          <p>More visual themes are planned to give you additional customization options. Upcoming themes will include new color palettes, accessibility-focused layouts, and modern stylistic variations to help your contact form better match your brand identity.</p>
+        </section>
+
+      </div>
+    </article>
+
+    
   </main>
 </div>

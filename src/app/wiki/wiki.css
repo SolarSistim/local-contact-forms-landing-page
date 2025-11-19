@@ -101,6 +101,8 @@
   font-size: 20px;
   width: 20px;
   height: 20px;
+  position: relative;
+  bottom: -4px;
 }
 
 /* Wiki Content */
@@ -202,3 +204,50 @@
     font-size: 1.25rem;
   }
 }
+
+.article-body section[id] {
+  scroll-margin-top: 75px;
+}
+
+img {
+  border: 12px solid #5e35b1;
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+.config-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.config-table th,
+.config-table td {
+  border: 1px solid #e0e0e0;
+  padding: 8px 10px;
+  vertical-align: top;
+}
+
+.config-table th {
+  background: #fafafa;
+  text-align: left;
+  font-weight: 600;
+}
+
+/* Required column coloring */
+.config-table td.required-yes {
+  background: #5e35b1;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.config-table td.required-no {
+  background: #61ff88;
+  color: #1f1f1f;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
