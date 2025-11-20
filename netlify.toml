@@ -2,6 +2,9 @@
   command = "npm run build -- --configuration production"
   publish = "dist/local-contact-forms/browser"
 
+[functions]
+  directory = "netlify/functions"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
