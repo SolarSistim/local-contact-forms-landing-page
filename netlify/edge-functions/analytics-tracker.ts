@@ -7,13 +7,15 @@ export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
   
   // Only track HTML page visits (not assets, API calls, etc.)
-  const isAsset = /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json|xml)$/i.test(url.pathname);
+  const isAsset = /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json|xml|webmanifest|map|txt)$/i.test(url.pathname);
   const isInternalRequest = url.pathname.startsWith('/.netlify/');
+  const isWellKnown = url.pathname.startsWith('/.well-known/');
+  const isSpecialFile = /^\/(favicon|robots|sitemap|site\.webmanifest|manifest\.json|browserconfig\.xml)/i.test(url.pathname);
   const userAgent = request.headers.get('user-agent') || '';
   const isDeno = userAgent.includes('Deno/');
   
   // Fire off analytics tracking only for real HTML page visits
-  if (!isAsset && !isInternalRequest && !isDeno) {
+  if (!isAsset && !isInternalRequest && !isDeno && !isWellKnown && !isSpecialFile) {
     logAnalytics(request, context).catch(err => {
       console.error('Analytics tracking error (non-blocking):', err);
     });
