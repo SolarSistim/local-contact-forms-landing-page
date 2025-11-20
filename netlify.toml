@@ -5,12 +5,9 @@
 [functions]
   directory = "netlify/functions"
 
-[build.environment]
-  DENO_DEPLOYMENT_ID = "edge-functions"
-
 [[edge_functions]]
   path = "/*"
-  function = "log-analytics"
+  function = "analytics-tracker"
 
 [[redirects]]
   from = "/*"
