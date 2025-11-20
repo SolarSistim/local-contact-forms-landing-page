@@ -1,144 +1,201 @@
-import type { Context } from "@netlify/edge-functions";
+import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
+import { google } from 'googleapis';
+import * as dotenv from 'dotenv';
+
+// Load environment variables from .env file for local development
+dotenv.config();
+
+const sheets = google.sheets('v4');
 
 const SPREADSHEET_ID = '1-j1qhdR0ERzDkJlgy1klls5ztJdbJMpHbLDfH6BXVQk';
 const SHEET_NAME = 'hit_counter';
 
-export default async (request: Request, context: Context) => {
-  const url = new URL(request.url);
-  
-  // Only track HTML page visits (not assets, API calls, etc.)
-  const isAsset = /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json|xml|webmanifest|map)$/i.test(url.pathname);
-  const isInternalRequest = url.pathname.startsWith('/.netlify/');
-  const isWellKnown = url.pathname.startsWith('/.well-known/');
-  const isManifest = url.pathname.includes('manifest');
-  const userAgent = request.headers.get('user-agent') || '';
-  const isDeno = userAgent.includes('Deno/');
-  
-  // Fire off analytics tracking only for real HTML page visits
-  if (!isAsset && !isInternalRequest && !isDeno && !isWellKnown && !isManifest) {
-    logAnalytics(request, context).catch(err => {
-      console.error('Analytics tracking error (non-blocking):', err);
-    });
+const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+  // CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  };
+
+  // Handle preflight OPTIONS request
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 200, headers, body: '' };
   }
 
-  // Continue to the actual page
-  return context.next();
-};
+  // Only allow POST requests
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ error: 'Method not allowed' })
+    };
+  }
 
-// Async function to log analytics
-async function logAnalytics(request: Request, context: Context) {
   try {
-    const url = new URL(request.url);
-    
-    // Get current date/time in CST format
-    const date = new Date();
-    const cstDate = new Intl.DateTimeFormat('en-US', {
-      timeZone: 'America/Chicago',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true
-    }).format(date);
+    const analyticsData = JSON.parse(event.body || '{}');
 
-    // Extract tenant ID if present, otherwise use 'website'
-    let tenantId = 'website';
-    if (url.searchParams.has('id')) {
-      tenantId = url.searchParams.get('id') || 'website';
-    } else {
-      const pathParts = url.pathname.split('/').filter(part => part.length > 0);
-      if (pathParts.length >= 2 && pathParts[0] === 'contact') {
-        tenantId = pathParts[1];
+    if (!analyticsData || !analyticsData.tenantId) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: 'Invalid data format - missing required fields' })
+      };
+    }
+
+    // Initialize Google Sheets API with service account
+    const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
+    if (!serviceAccountKey) {
+      throw new Error('GOOGLE_SERVICE_ACCOUNT_KEY environment variable is not set');
+    }
+
+    let credentials;
+    try {
+      credentials = JSON.parse(serviceAccountKey);
+    } catch (parseError: any) {
+      throw new Error(`Failed to parse service account key: ${parseError.message}`);
+    }
+
+    const auth = new google.auth.GoogleAuth({
+      credentials: credentials,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    const authClient = await auth.getClient();
+    google.options({ auth: authClient as any });
+
+    // Prepare row data in the correct column order
+    const rowData = [
+      analyticsData.date,           // 1st column: Date
+      analyticsData.tenantId,       // 2nd column: Tenant ID
+      analyticsData.domain,         // 3rd column: Domain
+      analyticsData.referrer,       // 4th column: Referrer
+      analyticsData.geoLocation,    // 5th column: Geographic location
+      analyticsData.ip,             // 6th column: IP address
+      analyticsData.pageUrl,        // 7th column: Page URL/Path
+      analyticsData.deviceType,     // 8th column: Device Type
+      analyticsData.sessionId,      // 9th column: Session ID
+      analyticsData.platform,       // 10th column: Platform
+      analyticsData.userAgent       // 11th column: User Agent
+    ];
+
+    // Check if the sheet exists and get its metadata
+    let sheetExists = false;
+    let sheetId: number | null | undefined;
+    
+    try {
+      const sheetMetadata = await sheets.spreadsheets.get({
+        spreadsheetId: SPREADSHEET_ID,
+      });
+      
+      const sheet = sheetMetadata.data.sheets?.find(
+        s => s.properties?.title === SHEET_NAME
+      );
+      
+      sheetExists = !!sheet;
+      sheetId = sheet?.properties?.sheetId;
+    } catch (error) {
+      console.log('Could not check sheet existence:', error);
+    }
+
+    // If sheet doesn't exist, create it with headers
+    if (!sheetExists) {
+      try {
+        const createResponse = await sheets.spreadsheets.batchUpdate({
+          spreadsheetId: SPREADSHEET_ID,
+          requestBody: {
+            requests: [
+              {
+                addSheet: {
+                  properties: {
+                    title: SHEET_NAME,
+                  },
+                },
+              },
+            ],
+          },
+        });
+
+        // Get the newly created sheet ID
+        sheetId = createResponse.data.replies?.[0]?.addSheet?.properties?.sheetId;
+
+        // Add headers
+        await sheets.spreadsheets.values.append({
+          spreadsheetId: SPREADSHEET_ID,
+          range: `${SHEET_NAME}!A1`,
+          valueInputOption: 'RAW',
+          requestBody: {
+            values: [[
+              'Date',
+              'Tenant ID',
+              'Domain',
+              'Referrer',
+              'Geographic Location',
+              'IP Address',
+              'Page URL/Path',
+              'Device Type',
+              'Session ID',
+              'Platform',
+              'User Agent'
+            ]],
+          },
+        });
+      } catch (createError) {
+        console.log('Sheet might already exist or could not be created:', createError);
       }
     }
 
-    // Get domain
-    const domain = url.hostname;
+    if (sheetId === undefined || sheetId === null) {
+      throw new Error(`Could not find sheet ID for ${SHEET_NAME}`);
+    }
 
-    // Get referrer
-    const referrer = request.headers.get('referer') || 'Direct';
-
-    // Get geographic location from Netlify context
-    const geo = context.geo;
-    const geoLocation = geo ? `${geo.city || 'Unknown'}, ${geo.subdivision?.name || geo.country?.name || 'Unknown'}` : 'Unknown';
-
-    // Get IP address
-    const ip = context.ip || request.headers.get('x-forwarded-for') || 'Unknown';
-
-    // Get page URL/path
-    const pageUrl = url.pathname + url.search;
-
-    // Get user agent
-    const userAgent = request.headers.get('user-agent') || 'Unknown';
-
-    // Parse User Agent for device type and platform
-    const deviceType = getDeviceType(userAgent);
-    const platform = getPlatform(userAgent);
-
-    // Generate session ID (simple hash of IP + UA + date)
-    const sessionId = await generateSessionId(ip, userAgent, date.toDateString());
-
-    // Prepare analytics data
-    const analyticsData = {
-      tenantId,
-      date: cstDate,
-      domain,
-      referrer,
-      geoLocation,
-      ip,
-      pageUrl,
-      deviceType,
-      sessionId,
-      platform,
-      userAgent
-    };
-
-    // Send to Google Sheets via serverless function
-    const analyticsUrl = `${url.origin}/.netlify/functions/log-analytics`;
-    
-    // Fire and forget - don't await
-    await fetch(analyticsUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    // Insert a new row at position 2 (right after header row)
+    await sheets.spreadsheets.batchUpdate({
+      spreadsheetId: SPREADSHEET_ID,
+      requestBody: {
+        requests: [
+          {
+            insertDimension: {
+              range: {
+                sheetId: sheetId,
+                dimension: 'ROWS',
+                startIndex: 1, // Row 2 (0-indexed)
+                endIndex: 2,   // Insert 1 row
+              },
+              inheritFromBefore: false,
+            },
+          },
+        ],
       },
-      body: JSON.stringify(analyticsData)
     });
 
-  } catch (error) {
-    console.error('Error in logAnalytics (non-blocking):', error);
+    // Now update the newly inserted row with our data
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: SPREADSHEET_ID,
+      range: `${SHEET_NAME}!A2:K2`,
+      valueInputOption: 'RAW',
+      requestBody: {
+        values: [rowData],
+      },
+    });
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ success: true, message: 'Analytics logged successfully' })
+    };
+
+  } catch (error: any) {
+    console.error('Error logging analytics:', error);
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ 
+        error: 'Failed to log analytics',
+        details: error.message || 'Unknown error'
+      })
+    };
   }
-}
+};
 
-// Helper function to determine device type
-function getDeviceType(userAgent: string): string {
-  if (/mobile|android|iphone|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
-    return 'Mobile';
-  } else if (/tablet|ipad|playbook|silk/i.test(userAgent)) {
-    return 'Tablet';
-  }
-  return 'Desktop';
-}
-
-// Helper function to determine platform
-function getPlatform(userAgent: string): string {
-  if (/windows/i.test(userAgent)) return 'Windows';
-  if (/macintosh|mac os x/i.test(userAgent)) return 'Mac';
-  if (/linux/i.test(userAgent)) return 'Linux';
-  if (/android/i.test(userAgent)) return 'Android';
-  if (/iphone|ipad|ipod/i.test(userAgent)) return 'iOS';
-  return 'Unknown';
-}
-
-// Helper function to generate a session ID
-async function generateSessionId(ip: string, userAgent: string, date: string): Promise<string> {
-  const data = `${ip}-${userAgent}-${date}`;
-  const encoder = new TextEncoder();
-  const dataBuffer = encoder.encode(data);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  return hashHex.substring(0, 16); // Use first 16 chars
-}
+export { handler };
