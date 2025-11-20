@@ -13,9 +13,11 @@ export default async (request: Request, context: Context) => {
   const isSpecialFile = /^\/(favicon|robots|sitemap|site\.webmanifest|manifest\.json|browserconfig\.xml)/i.test(url.pathname);
   const userAgent = request.headers.get('user-agent') || '';
   const isDeno = userAgent.includes('Deno/');
+  const isHeadless = /headless|bot|crawler|spider|prerender/i.test(userAgent);
+  const isNetlifyPreview = url.hostname.includes('netlify.app');
   
   // Fire off analytics tracking only for real HTML page visits
-  if (!isAsset && !isInternalRequest && !isDeno && !isWellKnown && !isSpecialFile) {
+  if (!isAsset && !isInternalRequest && !isDeno && !isWellKnown && !isSpecialFile && !isHeadless && !isNetlifyPreview) {
     logAnalytics(request, context).catch(err => {
       console.error('Analytics tracking error (non-blocking):', err);
     });
