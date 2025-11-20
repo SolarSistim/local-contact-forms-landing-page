@@ -33,6 +33,10 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   }
 
   try {
+    // Debug: Log environment variable status
+    console.log('Environment variables available:', Object.keys(process.env));
+    console.log('GOOGLE_SERVICE_ACCOUNT_KEY exists:', !!process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+
     const analyticsData = JSON.parse(event.body || '{}');
 
     if (!analyticsData || !analyticsData.tenantId) {
