@@ -39,5 +39,8 @@ export class WikiComponent {
     });
   }
 
+  openLocalContactForms(): void {
+    window.open('https://app.localcontactforms.com/?id=local-contact-forms', '_blank', 'noopener');
+  }
 
 }
