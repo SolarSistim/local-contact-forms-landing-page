@@ -91,6 +91,17 @@
         </mat-icon>
       </a>
 
+      <a
+        mat-list-item
+        (click)="selectArticle('changelog')"
+        [class.active]="selectedArticleId === 'changelog'"
+      >
+        <span class="article-title">Changelog</span>
+        <mat-icon class="arrow-icon" *ngIf="selectedArticleId === 'changelog'">
+          chevron_right
+        </mat-icon>
+      </a>
+
     </mat-nav-list>
   </aside>
 
@@ -803,14 +814,57 @@
           <p>When this feature is added, you will be able to temporarily enable an “On Vacation” mode. This mode will display a friendly message to your customers informing them that responses may be delayed or unavailable. You’ll be able to customize the message and specify a return date if desired.</p>
         </section>
 
+        <section id="dev-form-disable">
+          <h2>Temporarily Disable Form</h2>
+          <p>
+            This feature will let you temporarily turn off your Local Contact Form without deleting it or changing any settings. When the form is disabled, visitors will see a clear message explaining that the form is not currently accepting new submissions. You’ll be able to customize this message and re-enable the form at any time with a single toggle.
+          </p>
+        </section>
+
         <section id="dev-additional-themes">
           <h2>Additional Themes</h2>
           <p>More visual themes are planned to give you additional customization options. Upcoming themes will include new color palettes, accessibility-focused layouts, and modern stylistic variations to help your contact form better match your brand identity.</p>
         </section>
 
+        <section id="dev-additional-themes">
+        <h2>General Message</h2>
+        <p>
+          The General Message feature will let you display a customizable notice to every visitor before they submit the form. Use it for announcements, temporary updates, promotions, or any information you want customers to see at a glance. You’ll be able to toggle this message on or off at any time and update the content to match your current needs.
+        </p>
+        </section>
+
+        <section id="dev-additional-themes">
+        <h2>Store Hours</h2>
+        <p>
+          With the Store Hours option, you’ll have the ability to show or hide your current hours of operation directly on the contact form. This helps set clear expectations about when customers can expect a response and reduces confusion around availability. You’ll be able to quickly adjust hours for holidays, special events, or seasonal schedules as needed.
+        </p>
+        </section>
+
       </div>
     </article>
 
-    
+    <article class="article" *ngIf="selectedArticleId === 'changelog'">
+      <div class="article-body">
+        <h2>Changelog</h2>
+
+        <p>This section tracks all major updates, new features, and improvements to Local Contact Forms. Check back regularly to see what's new.</p>
+
+        <section>
+
+          <h2>Version 1.3.0 - Nov. 23, 2025</h2>
+
+          <h3>New Features</h3>
+          <ul>
+            <li>Added option to show or hide phone number on the public facing form.</li>
+            <li>Added option to show or email address number on the public facing form.</li>
+          </ul>
+
+        </section>
+
+
+      </div>
+    </article>
+
+
   </main>
 </div>
